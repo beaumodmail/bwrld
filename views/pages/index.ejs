@@ -1,32 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include('../partials/head'); %>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .countdown span {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            margin: 0 10px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .social-media {
+            margin-top: 40px;
+        }
+
+        .social-media a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 2rem;
+            color: #333;
+        }
+    </style>
 </head>
-<body class="container">
+<body>
 
-    <header>
-        <%- include('../partials/header'); %>
-    </header>
+    <div class="container">
+        <h1>Coming Soon</h1>
+        <p>We're currently working hard to bring you an amazing experience.</p>
 
-    <main>
-        <div class="jumbotron">
-            <h1>Top Mascots</h1>
-            <p><%= tagline %></p>
-            <ul>
-                <% mascots.forEach(function(mascot) { %>
-                    <li>
-                        <strong><%= mascot.name %></strong>
-                        representing <%= mascot.organization %>, born <%= mascot.birth_year %>
-                    </li>
-                <% }); %>
-            </ul>
+        <div class="countdown">
+            <span id="days"></span>
+            <span id="hours"></span>
+            <span id="minutes"></span>
+            <span id="seconds"></span>
         </div>
-    </main>
 
-    <footer>
-        <%- include('../partials/footer'); %>
-    </footer>
+        <div class="social-media">
+            <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for countdown timer (replace with your actual launch date)
+        const launchDate = new Date("2024-12-31T23:59:59").getTime();
+
+        const countdown = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = launchDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days + "<span>Days</span>";
+            document.getElementById("hours").innerHTML = hours + "<span>Hours</span>";
+            document.getElementById("minutes").innerHTML = minutes + "<span>Mins</span>";
+            document.getElementById("seconds").innerHTML = seconds + "<span>Secs</span>";
+
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.getElementById("countdown").innerHTML = "Launched!";
+            }
+        }, 1000);
+    </script>
 
 </body>
 </html>
